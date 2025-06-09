@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+// Load recipes from Firebase
+        async function loadRecipesFromFirebase() {
+            if (!isFirebaseEnabled) return<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -112,12 +114,27 @@
         .hero {
             text-align: center;
             padding: 60px 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23d35400" width="1200" height="800"/><circle fill="%23e67e22" cx="200" cy="200" r="50" opacity="0.3"/><circle fill="%23f39c12" cx="800" cy="300" r="80" opacity="0.2"/><circle fill="%23e74c3c" cx="1000" cy="600" r="60" opacity="0.3"/></svg>');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./food-background.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             border-radius: 20px;
             margin-bottom: 50px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23d35400" width="1200" height="800" opacity="0.1"/><circle fill="%23e67e22" cx="200" cy="200" r="50" opacity="0.1"/><circle fill="%23f39c12" cx="800" cy="300" r="80" opacity="0.1"/><circle fill="%23e74c3c" cx="1000" cy="600" r="60" opacity="0.1"/></svg>');
+            background-size: cover;
+            pointer-events: none;
         }
 
         .hero h1 {
@@ -247,6 +264,39 @@
         .recipe-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .recipe-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 5px;
+        }
+
+        .recipe-card:hover .recipe-actions {
+            display: flex;
+        }
+
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .delete-btn {
+            background: rgba(231, 76, 60, 0.8);
+        }
+
+        .delete-btn:hover {
+            background: rgba(231, 76, 60, 1);
+            transform: scale(1.1);
         }
 
         .recipe-image {
@@ -941,11 +991,20 @@
             if (!isFirebaseEnabled) return false;
             
             try {
-                await db.collection("recipes").doc(recipe.id.toString()).set(recipe);
+                // Add timeout for Firebase operations
+                const savePromise = db.collection("recipes").doc(recipe.id.toString()).set(recipe);
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout')), 10000) // 10 seconds timeout
+                );
+                
+                await Promise.race([savePromise, timeoutPromise]);
                 console.log("✅ מתכון נשמר ל-Firebase");
                 return true;
             } catch (error) {
                 console.error("❌ שגיאה בשמירה ל-Firebase:", error);
+                if (error.message === 'Timeout') {
+                    console.log("⏱️ תם הזמן לשמירה - נשמר בזיכרון מקומי");
+                }
                 return false;
             }
         }
@@ -957,7 +1016,13 @@
             try {
                 showLoadingMessage("טוען מתכונים...");
                 
-                const snapshot = await db.collection("recipes").orderBy("id").get();
+                // Add timeout for loading
+                const loadPromise = db.collection("recipes").orderBy("id").get();
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout')), 8000) // 8 seconds timeout
+                );
+                
+                const snapshot = await Promise.race([loadPromise, timeoutPromise]);
                 const firebaseRecipes = [];
                 
                 snapshot.forEach(doc => {
@@ -979,6 +1044,9 @@
             } catch (error) {
                 console.error("❌ שגיאה בטעינה מ-Firebase:", error);
                 hideLoadingMessage();
+                if (error.message === 'Timeout') {
+                    showSuccessMessage('חיבור איטי לשרת - משתמש בנתונים מקומיים', 'warning');
+                }
             }
         }
 
@@ -1136,13 +1204,26 @@
         function createRecipeCard(recipe) {
             const card = document.createElement('div');
             card.className = 'recipe-card fade-in';
-            card.onclick = () => showRecipeDetail(recipe);
+            card.onclick = (e) => {
+                // Don't open modal if clicking on action buttons
+                if (!e.target.closest('.recipe-actions')) {
+                    showRecipeDetail(recipe);
+                }
+            };
 
             const imageContent = recipe.image ? 
                 `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
                 recipe.emoji;
 
+            // Show delete button only if admin is logged in (check if admin section is visible)
+            const adminSectionVisible = !document.getElementById('admin-section').classList.contains('hidden');
+            const deleteButton = adminSectionVisible ? 
+                `<div class="recipe-actions">
+                    <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
+                </div>` : '';
+
             card.innerHTML = `
+                ${deleteButton}
                 <div class="recipe-image">
                     ${imageContent}
                 </div>
@@ -1312,32 +1393,32 @@
                 createdAt: new Date().toISOString()
             };
 
-            // Try to save to Firebase first
-            let saved = false;
+            // Add to local array first for immediate feedback
+            recipes.push(newRecipe);
+            
+            // Update UI immediately
+            loadFeaturedRecipes();
+            loadAllRecipes();
+            loadCategories();
+
+            // Try to save to Firebase in background
             if (isFirebaseEnabled) {
-                saved = await saveRecipeToFirebase(newRecipe);
-            }
-
-            if (saved || !isFirebaseEnabled) {
-                recipes.push(newRecipe);
-                
-                // Clear form
-                this.reset();
-
-                // Show success message
-                const message = saved ? 
-                    'המתכון נשמר בהצלחה למסד הנתונים! 🔥' : 
-                    'המתכון נשמר בזיכרון המקומי (זמני)';
-                showSuccessMessage(message);
-
-                // Refresh displays
-                loadFeaturedRecipes();
-                loadAllRecipes();
-                loadCategories();
+                try {
+                    const saved = await saveRecipeToFirebase(newRecipe);
+                    if (saved) {
+                        showSuccessMessage('המתכון נשמר בהצלחה! 🔥');
+                    } else {
+                        showSuccessMessage('המתכון נשמר מקומית (בעיה ברשת)', 'warning');
+                    }
+                } catch (error) {
+                    showSuccessMessage('המתכון נשמר מקומית (בעיה ברשת)', 'warning');
+                }
             } else {
-                showSuccessMessage('שגיאה בשמירה, נסה שוב', 'error');
+                showSuccessMessage('המתכון נשמר בזיכרון המקומי (זמני)', 'warning');
             }
 
+            // Clear form
+            this.reset();
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         });
@@ -1360,9 +1441,21 @@
         // Show success message
         function showSuccessMessage(message, type = 'success') {
             const toast = document.createElement('div');
-            const bgColor = type === 'error' ? 
-                'linear-gradient(45deg, #e74c3c, #c0392b)' : 
-                'linear-gradient(45deg, #27ae60, #2ecc71)';
+            let bgColor, icon;
+            
+            switch(type) {
+                case 'error':
+                    bgColor = 'linear-gradient(45deg, #e74c3c, #c0392b)';
+                    icon = '❌';
+                    break;
+                case 'warning':
+                    bgColor = 'linear-gradient(45deg, #f39c12, #e67e22)';
+                    icon = '⚠️';
+                    break;
+                default:
+                    bgColor = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                    icon = '✅';
+            }
                 
             toast.style.cssText = `
                 position: fixed;
@@ -1372,13 +1465,16 @@
                 color: white;
                 padding: 15px 25px;
                 border-radius: 10px;
-                box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
                 z-index: 3000;
                 animation: slideInRight 0.5s ease, fadeOut 0.5s ease 3.5s forwards;
                 max-width: 300px;
                 word-wrap: break-word;
+                display: flex;
+                align-items: center;
+                gap: 10px;
             `;
-            toast.textContent = message;
+            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
 
             document.body.appendChild(toast);
 
@@ -1387,6 +1483,40 @@
                     toast.parentNode.removeChild(toast);
                 }
             }, 4000);
+        }
+
+        // Delete recipe function
+        async function deleteRecipe(recipeId) {
+            if (!confirm('האם אתה בטוח שברצונך למחוק את המתכון?')) {
+                return;
+            }
+
+            // Remove from local array immediately
+            const recipeIndex = recipes.findIndex(r => r.id === recipeId);
+            if (recipeIndex > -1) {
+                const deletedRecipe = recipes.splice(recipeIndex, 1)[0];
+                
+                // Update UI immediately
+                loadFeaturedRecipes();
+                loadAllRecipes();
+                loadCategories();
+
+                // Try to delete from Firebase in background
+                if (isFirebaseEnabled) {
+                    try {
+                        const deleted = await deleteRecipeFromFirebase(recipeId);
+                        if (deleted) {
+                            showSuccessMessage('המתכון נמחק בהצלחה! 🗑️');
+                        } else {
+                            showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
+                        }
+                    } catch (error) {
+                        showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
+                    }
+                } else {
+                    showSuccessMessage('המתכון נמחק מהזיכרון המקומי', 'warning');
+                }
+            }
         }
 
         // Search on Enter key
