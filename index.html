@@ -1747,6 +1747,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             init();
             initCateringLink();
+            
+            // Show Firebase status after initialization
+            setTimeout(() => {
+                showFirebaseStatus();
+            }, 1000);
         });
 
         function loadAllRecipesAnimated() {
