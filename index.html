@@ -881,6 +881,7 @@
                 </div>
 
                 <div class="admin-panel">
+                    <h3 style="color: #f39c12; margin-bottom: 20px; font-size: 1.5rem;">הוספת מתכון חדש</h3>
                     <form class="admin-form" id="recipe-form">
                         <div class="form-group">
                             <label class="form-label">שם המתכון</label>
@@ -944,6 +945,14 @@
 
                         <button type="submit" class="btn btn-primary">שמור מתכון</button>
                     </form>
+                </div>
+
+                <!-- Admin Recipes Management -->
+                <div class="admin-panel" style="margin-top: 40px;">
+                    <h3 style="color: #f39c12; margin-bottom: 20px; font-size: 1.5rem;">ניהול מתכונים קיימים</h3>
+                    <div class="recipes-grid" id="admin-recipes">
+                        <!-- Admin recipes will be loaded here -->
+                    </div>
                 </div>
             </section>
         </div>
@@ -1249,6 +1258,60 @@
             loadFeaturedRecipes();
             loadAllRecipes();
             loadCategories();
+            if (currentSection === 'admin') {
+                loadAdminRecipes();
+            }
+        }
+
+        // Load recipes for admin management
+        function loadAdminRecipes() {
+            const container = document.getElementById('admin-recipes');
+            container.innerHTML = '';
+
+            if (recipes.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #bdc3c7;">
+                        <h3>אין מתכונים</h3>
+                        <p>הוסף מתכון ראשון באמצעות הטופס למעלה</p>
+                    </div>
+                `;
+                return;
+            }
+
+            recipes.forEach(recipe => {
+                container.appendChild(createAdminRecipeCard(recipe));
+            });
+        }
+
+        // Create admin recipe card with prominent delete button
+        function createAdminRecipeCard(recipe) {
+            const card = document.createElement('div');
+            card.className = 'recipe-card fade-in';
+            
+            const imageContent = recipe.image ? 
+                `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
+                recipe.emoji;
+
+            card.innerHTML = `
+                <div class="recipe-actions" style="display: flex; opacity: 1;">
+                    <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
+                </div>
+                <div class="recipe-image" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+                    ${imageContent}
+                </div>
+                <div class="recipe-content" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+                    <h3 class="recipe-title">${recipe.name}</h3>
+                    <p class="recipe-description">${recipe.description}</p>
+                    <div class="recipe-meta">
+                        <div class="recipe-time">
+                            ⏱️ ${recipe.time} דקות
+                        </div>
+                        <div class="recipe-difficulty">${recipe.difficulty}</div>
+                    </div>
+                </div>
+            `;
+
+            return card;
         }
 
         // Show different sections
@@ -1267,6 +1330,8 @@
                 loadCategories();
             } else if (section === 'home') {
                 loadFeaturedRecipes();
+            } else if (section === 'admin') {
+                loadAdminRecipes();
             }
         }
 
