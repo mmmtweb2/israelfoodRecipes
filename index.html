@@ -103,6 +103,33 @@
             width: 100%;
         }
 
+        /* Admin Button - moved to corner */
+        .admin-corner-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-corner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(231, 76, 60, 0.6);
+            background: linear-gradient(45deg, #c0392b, #a93226);
+        }
+
         /* Main Content */
         .main-content {
             margin-top: 80px;
@@ -185,13 +212,6 @@
             border: 2px solid #f39c12;
         }
 
-        .btn-admin {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
-            top: 30px;
-        }
-
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
@@ -204,10 +224,6 @@
         .btn-secondary:hover {
             background: #f39c12;
             color: white;
-        }
-
-        .btn-admin:hover {
-            background: linear-gradient(45deg, #c0392b, #a93226);
         }
 
         /* Search Bar */
@@ -331,6 +347,12 @@
             overflow: hidden;
         }
 
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .recipe-image::before {
             content: '';
             position: absolute;
@@ -341,6 +363,12 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23d35400" width="400" height="300"/><circle fill="%23e67e22" cx="100" cy="100" r="30" opacity="0.3"/><circle fill="%23f39c12" cx="300" cy="200" r="40" opacity="0.2"/></svg>');
             background-size: cover;
             opacity: 0.5;
+            z-index: 1;
+        }
+
+        .recipe-image .emoji-display {
+            position: relative;
+            z-index: 2;
         }
 
         .recipe-content {
@@ -433,6 +461,84 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+        }
+
+        /* Image Upload Section */
+        .image-upload-section {
+            border: 2px dashed rgba(243, 156, 18, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            background: rgba(243, 156, 18, 0.1);
+            margin: 10px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-section:hover {
+            border-color: #f39c12;
+            background: rgba(243, 156, 18, 0.2);
+        }
+
+        .image-upload-options {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .upload-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-input-label {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-input-label:hover {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            transform: translateY(-2px);
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 10px;
+            margin: 10px auto;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .remove-image-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image-btn:hover {
+            background: #c0392b;
         }
 
         /* Admin Hero */
@@ -653,6 +759,19 @@
                 bottom: 20px;
                 left: 20px;
             }
+
+            .admin-corner-btn {
+                top: 15px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            .image-upload-options {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -820,6 +939,9 @@
 </head>
 
   <body>
+    <!-- Admin Button in Corner -->
+    <button class="admin-corner-btn" onclick="checkAdminAccess()" title="ניהול האתר">🔧</button>
+
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -847,7 +969,6 @@
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('recipes')">עיון במתכונים</button>
                         <button class="btn btn-secondary" onclick="showSection('categories')">קטגוריות</button>
-                        <button class="btn btn-admin" onclick="checkAdminAccess()">🔧 ניהול האתר</button>
                     </div>
                 </div>
 
@@ -1050,9 +1171,34 @@
                         </div>
                     </div>
 
+                    <!-- Enhanced Image Upload Section -->
                     <div class="form-group">
-                        <label class="form-label">תמונת המתכון (URL)</label>
-                        <input type="url" class="form-input" id="recipe-image" placeholder="https://example.com/image.jpg">
+                        <label class="form-label">תמונת המתכון</label>
+                        <div class="image-upload-section">
+                            <div class="image-upload-options">
+                                <div class="upload-option">
+                                    <input type="file" id="recipe-image-file" class="file-input" accept="image/*" onchange="handleImageUpload(event)">
+                                    <label for="recipe-image-file" class="file-input-label">
+                                        📁 העלה תמונה
+                                    </label>
+                                </div>
+                                <div class="upload-option">
+                                    <span style="color: #bdc3c7;">או</span>
+                                </div>
+                                <div class="upload-option">
+                                    <input type="url" class="form-input" id="recipe-image-url" placeholder="https://example.com/image.jpg" onchange="handleUrlInput(event)" style="max-width: 250px;">
+                                </div>
+                            </div>
+                            
+                            <div id="image-preview-container">
+                                <img id="image-preview" class="image-preview" alt="תצוגה מקדימה">
+                                <button type="button" id="remove-image" class="remove-image-btn" onclick="removeImage()" style="display: none;">הסר תמונה</button>
+                            </div>
+                            
+                            <div style="font-size: 0.9rem; color: #95a5a6; margin-top: 10px;">
+                                גדלים מומלצים: 800x600 פיקסלים או יחס דומה
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -1108,6 +1254,77 @@
             console.log("⚠️ שגיאה בחיבור ל-Firebase, משתמש בזיכרון מקומי:", error);
             isFirebaseEnabled = false;
         }
+    }
+
+    // Image handling functions
+    let currentImageData = null;
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Check file size (limit to 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showSuccessMessage('התמונה גדולה מדי. בחר תמונה קטנה מ-5MB', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                showSuccessMessage('אנא בחר קובץ תמונה תקף', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImageData = e.target.result;
+                showImagePreview(currentImageData);
+                // Clear URL input
+                document.getElementById('recipe-image-url').value = '';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function handleUrlInput(event) {
+        const url = event.target.value.trim();
+        if (url) {
+            // Basic URL validation
+            try {
+                new URL(url);
+                currentImageData = url;
+                showImagePreview(url);
+                // Clear file input
+                document.getElementById('recipe-image-file').value = '';
+            } catch (error) {
+                showSuccessMessage('כתובת URL לא תקפה', 'error');
+                event.target.value = '';
+            }
+        }
+    }
+
+    function showImagePreview(imageSrc) {
+        const preview = document.getElementById('image-preview');
+        const removeBtn = document.getElementById('remove-image');
+        
+        preview.src = imageSrc;
+        preview.style.display = 'block';
+        removeBtn.style.display = 'block';
+    }
+
+    function removeImage() {
+        currentImageData = null;
+        const preview = document.getElementById('image-preview');
+        const removeBtn = document.getElementById('remove-image');
+        const fileInput = document.getElementById('recipe-image-file');
+        const urlInput = document.getElementById('recipe-image-url');
+        
+        preview.style.display = 'none';
+        removeBtn.style.display = 'none';
+        fileInput.value = '';
+        urlInput.value = '';
+        preview.src = '';
     }
 
     // Save recipe to Firebase
@@ -1228,7 +1445,8 @@
             description: "סטייק עסיסי ומושלם על האש עם תיבול מיוחד",
             ingredients: ["1 ק\"ג סטייק", "שמן זית", "מלח גס", "פלפל שחור", "שום", "רוזמרין"],
             instructions: ["חמם את הגריל", "תבל את הסטייק", "צלה 4 דקות מכל צד", "תן לנוח 5 דקות", "הגש חם"],
-            emoji: "🥩"
+            emoji: "🥩",
+            image: null
         },
         {
             id: 2,
@@ -1240,7 +1458,8 @@
             description: "סלט טרי ובריא עם ירקות עונתיים",
             ingredients: ["חסה", "עגבניות שרי", "מלפפון", "גזר", "רוטב טחינה", "לימון"],
             instructions: ["חתוך את הירקות", "הכן רוטב טחינה", "ערבב הכל", "הגש מיד"],
-            emoji: "🥗"
+            emoji: "🥗",
+            image: null
         },
         {
             id: 3,
@@ -1252,7 +1471,8 @@
             description: "עוגת שוקולד עשירה ודקדנטית",
             ingredients: ["קמח", "שוקולד מריר", "חמאה", "סוכר", "ביצים", "אבקת אפייה"],
             instructions: ["הכן את התבנית", "ממס שוקולד וחמאה", "ערבב את החומרים", "אפה 45 דקות", "קרר לפני הגשה"],
-            emoji: "🍰"
+            emoji: "🍰",
+            image: null
         }
     ];
 
@@ -1368,8 +1588,8 @@
         card.className = 'recipe-card fade-in';
         
         const imageContent = recipe.image ? 
-            `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
-            recipe.emoji;
+            `<img src="${recipe.image}" alt="${recipe.name}">` :
+            `<div class="emoji-display">${recipe.emoji}</div>`;
 
         const actionsHtml = isAdmin ? 
             `<div class="admin-recipe-actions">
@@ -1400,7 +1620,13 @@
         const modal = document.getElementById('recipe-modal');
         const detail = document.getElementById('recipe-detail');
 
+        const imageSection = recipe.image ? 
+            `<div style="text-align: center; margin-bottom: 20px;">
+                <img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; max-height: 300px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            </div>` : '';
+
         detail.innerHTML = `
+            ${imageSection}
             <h2>${recipe.name}</h2>
             <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
                 <span><strong>קטגוריה:</strong> ${recipe.category}</span>
@@ -1439,10 +1665,12 @@
     // Show add recipe form
     function showAddRecipeForm() {
         editingRecipe = null;
+        currentImageData = null;
         document.getElementById('form-title').textContent = 'הוספת מתכון חדש';
         document.getElementById('save-btn').textContent = 'שמור מתכון';
         document.getElementById('recipe-form').reset();
         document.getElementById('recipe-id').value = '';
+        removeImage();
         
         const modal = document.getElementById('recipe-form-modal');
         modal.classList.remove('hidden');
@@ -1455,6 +1683,7 @@
         if (!recipe) return;
 
         editingRecipe = recipe;
+        currentImageData = recipe.image;
         document.getElementById('form-title').textContent = 'עריכת מתכון';
         document.getElementById('save-btn').textContent = 'עדכן מתכון';
         
@@ -1465,10 +1694,21 @@
         document.getElementById('recipe-difficulty').value = recipe.difficulty;
         document.getElementById('recipe-time').value = recipe.time;
         document.getElementById('recipe-servings').value = recipe.servings;
-        document.getElementById('recipe-image').value = recipe.image || '';
         document.getElementById('recipe-description').value = recipe.description;
         document.getElementById('recipe-ingredients').value = recipe.ingredients.join('\n');
         document.getElementById('recipe-instructions').value = recipe.instructions.join('\n');
+        
+        // Handle image
+        if (recipe.image) {
+            if (recipe.image.startsWith('data:') || recipe.image.startsWith('http')) {
+                showImagePreview(recipe.image);
+                if (recipe.image.startsWith('http')) {
+                    document.getElementById('recipe-image-url').value = recipe.image;
+                }
+            }
+        } else {
+            removeImage();
+        }
         
         const modal = document.getElementById('recipe-form-modal');
         modal.classList.remove('hidden');
@@ -1481,6 +1721,8 @@
         modal.classList.remove('show');
         modal.classList.add('hidden');
         editingRecipe = null;
+        currentImageData = null;
+        removeImage();
     }
 
     // Delete recipe
@@ -1535,7 +1777,7 @@
 
             card.innerHTML = `
                 <div class="recipe-image">
-                    ${category.emoji}
+                    <div class="emoji-display">${category.emoji}</div>
                 </div>
                 <div class="recipe-content">
                     <h3 class="recipe-title">${category.name}</h3>
@@ -1608,7 +1850,7 @@
             time: parseInt(document.getElementById('recipe-time').value),
             servings: parseInt(document.getElementById('recipe-servings').value),
             description: document.getElementById('recipe-description').value,
-            image: document.getElementById('recipe-image').value || null,
+            image: currentImageData,
             ingredients: document.getElementById('recipe-ingredients').value.split('\n').filter(item => item.trim()),
             instructions: document.getElementById('recipe-instructions').value.split('\n').filter(item => item.trim()),
             emoji: getRandomEmoji(document.getElementById('recipe-category').value)
