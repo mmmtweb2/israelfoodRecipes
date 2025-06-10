@@ -1,6 +1,4 @@
-// Load recipes from Firebase
-        async function loadRecipesFromFirebase() {
-            if (!isFirebaseEnabled) return<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -505,6 +503,22 @@
         .admin-indicator .close-admin:hover {
             color: #ecf0f1;
         }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateX(100%); }
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        /* Enhanced Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -1236,6 +1250,8 @@
             loadAllRecipes();
             loadCategories();
         }
+
+        // Show different sections
         function showSection(section) {
             // Hide all sections
             document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
@@ -1291,9 +1307,8 @@
                 `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
                 recipe.emoji;
 
-            // Show delete button only if admin is logged in (check if admin section is visible)
-            const adminSectionVisible = !document.getElementById('admin-section').classList.contains('hidden');
-            const deleteButton = adminSectionVisible ? 
+            // Show delete button only if in admin mode
+            const deleteButton = isAdminMode ? 
                 `<div class="recipe-actions">
                     <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
                 </div>` : '';
@@ -1590,7 +1605,6 @@
                         showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
                     }
                 } else {
-                    showSuccessMessage('המתכון נמחק מהזיכרון המקומי', 'warning');
                 }
             }
         }
@@ -1654,17 +1668,6 @@
             }, 1000);
         }
 
-        // Add sparkle animation CSS
-        const sparkleStyle = document.createElement('style');
-        sparkleStyle.textContent = `
-            @keyframes sparkle {
-                0% { transform: scale(0) rotate(0deg); opacity: 1; }
-                50% { transform: scale(1) rotate(180deg); opacity: 1; }
-                100% { transform: scale(0) rotate(360deg); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(sparkleStyle);
-
         // Add sparkle effect to recipe cards
         document.addEventListener('click', function(e) {
             if (e.target.closest('.recipe-card')) {
@@ -1716,7 +1719,7 @@
                         break;
                     case '4':
                         e.preventDefault();
-                        showSection('admin');
+                        checkAdminAccess();
                         break;
                 }
             }
@@ -1726,46 +1729,11 @@
             }
         });
 
-        // Add loading animation for recipe cards
-        function loadRecipeWithAnimation(container, recipe, delay = 0) {
-            setTimeout(() => {
-                const card = createRecipeCard(recipe);
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                container.appendChild(card);
-                
-                // Trigger animation
-                setTimeout(() => {
-                    card.style.transition = 'all 0.6s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 50);
-            }, delay);
-        }
-
         // Initialize the app when page loads
         document.addEventListener('DOMContentLoaded', function() {
             init();
             initCateringLink();
-            
-            // Show Firebase status after initialization
-            setTimeout(() => {
-                showFirebaseStatus();
-            }, 1000);
         });
-
-        function loadAllRecipesAnimated() {
-            const container = document.getElementById('all-recipes');
-            container.innerHTML = '';
-
-            recipes.forEach((recipe, index) => {
-                loadRecipeWithAnimation(container, recipe, index * 100);
-            });
-        }
-
-        // Update the load functions to use animations
-        loadFeaturedRecipes = loadFeaturedRecipesAnimated;
-        loadAllRecipes = loadAllRecipesAnimated;
     </script>
 </body>
 </html>
