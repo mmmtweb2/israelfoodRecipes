@@ -1,4 +1,947 @@
-<!DOCTYPE html>
+<option value="מתקדם">מתקדם</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="searchRecipes()">חיפוש</button>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">מתכונים פופולריים</h2>
+                </div>
+
+                <div class="recipes-grid" id="featured-recipes">
+                    <!-- Featured recipes will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Recipes Section -->
+            <section id="recipes-section" class="section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">כל המתכונים</h2>
+                </div>
+
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="חיפוש מתכונים..." id="searchInput2">
+                        <select class="filter-select" id="categoryFilter2">
+                            <option value="">כל הקטגוריות</option>
+                            <option value="בשרים">בשרים</option>
+                            <option value="עוף">עוף</option>
+                            <option value="דגים">דגים</option>
+                            <option value="צמחוני">צמחוני</option>
+                            <option value="מתוקים">מתוקים</option>
+                            <option value="סלטים">סלטים</option>
+                        </select>
+                        <select class="filter-select" id="difficultyFilter2">
+                            <option value="">כל הרמות</option>
+                            <option value="קל">קל</option>
+                            <option value="בינוני">בינוני</option>
+                            <option value="מתקדם">מתקדם</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="searchRecipes()">חיפוש</button>
+                    </div>
+                </div>
+
+                <div class="recipes-grid" id="all-recipes">
+                    <!-- All recipes will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories-section" class="section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">קטגוריות</h2>
+                </div>
+
+                <div class="recipes-grid" id="categories-grid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Admin Section -->
+            <section id="admin-section" class="section hidden">
+                <button class="back-btn" onclick="showSection('home')">← חזור לאתר</button>
+                
+                <div class="admin-hero">
+                    <h1>🔧 ניהול האתר</h1>
+                    <p>ממשק ניהול מתכונים מתקדם</p>
+                </div>
+
+                <div class="admin-stats" id="admin-stats">
+                    <!-- Stats will be loaded here -->
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">ניהול מתכונים</h2>
+                </div>
+
+                <div class="recipes-grid" id="admin-recipes">
+                    <!-- Admin recipes will be loaded here -->
+                </div>
+
+                <button class="add-recipe-btn" onclick="showAddRecipeForm()" title="הוסף מתכון חדש">+</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-nav" class="mobile-nav">
+        <a href="javascript:void(0)" onclick="showSection('home'); closeMobileMenu()">בית</a>
+        <a href="javascript:void(0)" onclick="showSection('recipes'); closeMobileMenu()">מתכונים</a>
+        <a href="javascript:void(0)" onclick="showSection('categories'); closeMobileMenu()">קטגוריות</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Food קייטרינג</h3>
+                    <p>קייטרינג מקצועי לאירועים • אוכל ביתי איכותי • שירות על האש</p>
+                    <p><a href="https://mmmtweb2.github.io/israelFood/" target="_blank" id="catering-website">לאתר הקייטרינג הראשי ←</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>צור קשר</h3>
+                    <p><a href="tel:0533918487">📞 טלפון: 053-391-8487</a></p>
+                    <p><a href="https://wa.me/972533918487" target="_blank">💬 וואטסאפ: 053-391-8487</a></p>
+                    <p><a href="mailto:Israelt1770@gmail.com">📧 מייל: Israelt1770@gmail.com</a></p>
+                    <p><a href="https://www.instagram.com/israel_tirnuer" target="_blank">📷 אינסטגרם: @israel_tirnuer</a></p>
+                    <p><a href="https://mmmtweb2.github.io/israelFood/" target="_blank">🌐 אתר הקייטרינג</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>קישורים מהירים</h3>
+                    <p><a href="javascript:void(0)" onclick="showSection('recipes')">כל המתכונים</a></p>
+                    <p><a href="javascript:void(0)" onclick="showSection('categories')">קטגוריות</a></p>
+                    <p><a href="javascript:void(0)" onclick="filterByCategory('בשרים')">מתכוני בשר</a></p>
+                    <p><a href="javascript:void(0)" onclick="filterByCategory('צמחוני')">מתכונים צמחוניים</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Food קייטרינג. כל הזכויות שמורות.</p>
+                <p>האתר נבנה בידי <a href="https://mmmtweb2.github.io/MT/index.html" target="_blank">MMT Web Development</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipe-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="recipe-detail" class="recipe-detail">
+                <!-- Recipe details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Recipe Modal -->
+    <div id="recipe-form-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeRecipeForm()">&times;</button>
+            <div class="admin-panel" style="margin: 0;">
+                <h3 style="color: #f39c12; margin-bottom: 20px; font-size: 1.5rem;" id="form-title">הוספת מתכון חדש</h3>
+                <form class="admin-form" id="recipe-form">
+                    <input type="hidden" id="recipe-id">
+                    
+                    <div class="form-group">
+                        <label class="form-label">שם המתכון</label>
+                        <input type="text" class="form-input" id="recipe-name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">קטגוריה</label>
+                            <select class="form-input" id="recipe-category" required>
+                                <option value="">בחר קטגוריה</option>
+                                <option value="בשרים">בשרים</option>
+                                <option value="עוף">עוף</option>
+                                <option value="דגים">דגים</option>
+                                <option value="צמחוני">צמחוני</option>
+                                <option value="מתוקים">מתוקים</option>
+                                <option value="סלטים">סלטים</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">רמת קושי</label>
+                            <select class="form-input" id="recipe-difficulty" required>
+                                <option value="">בחר רמה</option>
+                                <option value="קל">קל</option>
+                                <option value="בינוני">בינוני</option>
+                                <option value="מתקדם">מתקדם</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">זמן הכנה (דקות)</label>
+                            <input type="number" class="form-input" id="recipe-time" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">מספר מנות</label>
+                            <input type="number" class="form-input" id="recipe-servings" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">תמונת המתכון (URL)</label>
+                        <input type="url" class="form-input" id="recipe-image" placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">תיאור קצר</label>
+                        <textarea class="form-textarea" id="recipe-description" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">רכיבים (כל רכיב בשורה נפרדת)</label>
+                        <textarea class="form-textarea" id="recipe-ingredients" rows="6" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">הוראות הכנה (כל שלב בשורה נפרדת)</label>
+                        <textarea class="form-textarea" id="recipe-instructions" rows="8" required></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeRecipeForm()">ביטול</button>
+                        <button type="submit" class="btn btn-primary" id="save-btn">שמור מתכון</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjStKh_pbzlQ3KVAEV7zrK1JBw25HiKh0",
+            authDomain: "israelfood-a4c0f.firebaseapp.com",
+            projectId: "israelfood-a4c0f",
+            storageBucket: "israelfood-a4c0f.firebasestorage.app",
+            messagingSenderId: "76099718868",
+            appId: "1:76099718868:web:51127e30105c9cfab5b541",
+            measurementId: "G-EN67405XKJ"
+        };
+
+        // Initialize Firebase
+        let db;
+        let isFirebaseEnabled = false;
+
+        function initFirebase() {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                isFirebaseEnabled = true;
+                console.log("🔥 Firebase מחובר בהצלחה!");
+                
+                // Load recipes from Firebase
+                loadRecipesFromFirebase();
+            } catch (error) {
+                console.log("⚠️ שגיאה בחיבור ל-Firebase, משתמש בזיכרון מקומי:", error);
+                isFirebaseEnabled = false;
+            }
+        }
+
+        // Save recipe to Firebase
+        async function saveRecipeToFirebase(recipe) {
+            if (!isFirebaseEnabled) return false;
+            
+            try {
+                const savePromise = db.collection("recipes").doc(recipe.id.toString()).set(recipe);
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout')), 10000)
+                );
+                
+                await Promise.race([savePromise, timeoutPromise]);
+                console.log("✅ מתכון נשמר ל-Firebase");
+                return true;
+            } catch (error) {
+                console.error("❌ שגיאה בשמירה ל-Firebase:", error);
+                return false;
+            }
+        }
+
+        // Load recipes from Firebase
+        async function loadRecipesFromFirebase() {
+            if (!isFirebaseEnabled) return;
+            
+            try {
+                showLoadingMessage("טוען מתכונים...");
+                
+                const loadPromise = db.collection("recipes").orderBy("id").get();
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout')), 8000)
+                );
+                
+                const snapshot = await Promise.race([loadPromise, timeoutPromise]);
+                const firebaseRecipes = [];
+                
+                snapshot.forEach(doc => {
+                    firebaseRecipes.push(doc.data());
+                });
+
+                if (firebaseRecipes.length > 0) {
+                    recipes = firebaseRecipes;
+                    console.log(`🔥 נטענו ${recipes.length} מתכונים מ-Firebase`);
+                } else {
+                    console.log("📝 אין מתכונים ב-Firebase, משתמש בדוגמאות");
+                }
+
+                hideLoadingMessage();
+                loadFeaturedRecipes();
+                loadAllRecipes();
+                loadCategories();
+                
+            } catch (error) {
+                console.error("❌ שגיאה בטעינה מ-Firebase:", error);
+                hideLoadingMessage();
+                if (error.message === 'Timeout') {
+                    showSuccessMessage('חיבור איטי לשרת - משתמש בנתונים מקומיים', 'warning');
+                }
+            }
+        }
+
+        // Delete recipe from Firebase
+        async function deleteRecipeFromFirebase(recipeId) {
+            if (!isFirebaseEnabled) return false;
+            
+            try {
+                await db.collection("recipes").doc(recipeId.toString()).delete();
+                console.log("🗑️ מתכון נמחק מ-Firebase");
+                return true;
+            } catch (error) {
+                console.error("❌ שגיאה במחיקה מ-Firebase:", error);
+                return false;
+            }
+        }
+
+        // Show loading message
+        function showLoadingMessage(message) {
+            const loading = document.createElement('div');
+            loading.id = 'loading-message';
+            loading.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.9);
+                color: #f39c12;
+                padding: 20px 40px;
+                border-radius: 10px;
+                z-index: 3000;
+                font-size: 1.2rem;
+                backdrop-filter: blur(10px);
+            `;
+            loading.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(loading);
+        }
+
+        function hideLoadingMessage() {
+            const loading = document.getElementById('loading-message');
+            if (loading) {
+                loading.remove();
+            }
+        }
+
+        // In-memory storage for recipes
+        let recipes = [
+            {
+                id: 1,
+                name: "סטייק על האש",
+                category: "בשרים",
+                difficulty: "בינוני",
+                time: 30,
+                servings: 4,
+                description: "סטייק עסיסי ומושלם על האש עם תיבול מיוחד",
+                ingredients: ["1 ק\"ג סטייק", "שמן זית", "מלח גס", "פלפל שחור", "שום", "רוזמרין"],
+                instructions: ["חמם את הגריל", "תבל את הסטייק", "צלה 4 דקות מכל צד", "תן לנוח 5 דקות", "הגש חם"],
+                emoji: "🥩"
+            },
+            {
+                id: 2,
+                name: "סלט טבעוני",
+                category: "צמחוני",
+                difficulty: "קל",
+                time: 15,
+                servings: 2,
+                description: "סלט טרי ובריא עם ירקות עונתיים",
+                ingredients: ["חסה", "עגבניות שרי", "מלפפון", "גזר", "רוטב טחינה", "לימון"],
+                instructions: ["חתוך את הירקות", "הכן רוטב טחינה", "ערבב הכל", "הגש מיד"],
+                emoji: "🥗"
+            },
+            {
+                id: 3,
+                name: "עוגת שוקולד",
+                category: "מתוקים",
+                difficulty: "מתקדם",
+                time: 90,
+                servings: 8,
+                description: "עוגת שוקולד עשירה ודקדנטית",
+                ingredients: ["קמח", "שוקולד מריר", "חמאה", "סוכר", "ביצים", "אבקת אפייה"],
+                instructions: ["הכן את התבנית", "ממס שוקולד וחמאה", "ערבב את החומרים", "אפה 45 דקות", "קרר לפני הגשה"],
+                emoji: "🍰"
+            }
+        ];
+
+        let currentSection = 'home';
+        let editingRecipe = null;
+
+        // Initialize the app
+        function init() {
+            initFirebase();
+            
+            if (!isFirebaseEnabled) {
+                loadFeaturedRecipes();
+                loadAllRecipes();
+                loadCategories();
+            }
+        }
+
+        // Check admin access
+        function checkAdminAccess() {
+            const password = prompt('הכנס סיסמת מנהל:');
+            if (password === 'admin123') {
+                showSection('admin');
+            } else if (password !== null) {
+                alert('סיסמה שגויה!');
+            }
+        }
+
+        // Show different sections
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(section + '-section').classList.remove('hidden');
+            currentSection = section;
+
+            if (section === 'recipes') {
+                loadAllRecipes();
+            } else if (section === 'categories') {
+                loadCategories();
+            } else if (section === 'home') {
+                loadFeaturedRecipes();
+            } else if (section === 'admin') {
+                loadAdminRecipes();
+                loadAdminStats();
+            }
+        }
+
+        // Load featured recipes
+        function loadFeaturedRecipes() {
+            const container = document.getElementById('featured-recipes');
+            container.innerHTML = '';
+
+            const featured = recipes.slice(0, 3);
+            featured.forEach(recipe => {
+                container.appendChild(createRecipeCard(recipe, false));
+            });
+        }
+
+        // Load all recipes
+        function loadAllRecipes() {
+            const container = document.getElementById('all-recipes');
+            container.innerHTML = '';
+
+            recipes.forEach(recipe => {
+                container.appendChild(createRecipeCard(recipe, false));
+            });
+        }
+
+        // Load admin recipes
+        function loadAdminRecipes() {
+            const container = document.getElementById('admin-recipes');
+            container.innerHTML = '';
+
+            if (recipes.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #bdc3c7;">
+                        <h3>אין מתכונים</h3>
+                        <p>לחץ על הכפתור + כדי להוסיף מתכון ראשון</p>
+                    </div>
+                `;
+                return;
+            }
+
+            recipes.forEach(recipe => {
+                container.appendChild(createRecipeCard(recipe, true));
+            });
+        }
+
+        // Load admin statistics
+        function loadAdminStats() {
+            const container = document.getElementById('admin-stats');
+            const totalRecipes = recipes.length;
+            const categories = [...new Set(recipes.map(r => r.category))].length;
+            const avgTime = recipes.length > 0 ? Math.round(recipes.reduce((sum, r) => sum + r.time, 0) / recipes.length) : 0;
+
+            container.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalRecipes}</div>
+                    <div class="stat-label">סך המתכונים</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${categories}</div>
+                    <div class="stat-label">קטגוריות</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${avgTime}</div>
+                    <div class="stat-label">זמן ממוצע (דק')</div>
+                </div>
+            `;
+        }
+
+        // Create recipe card
+        function createRecipeCard(recipe, isAdmin = false) {
+            const card = document.createElement('div');
+            card.className = 'recipe-card fade-in';
+            
+            const imageContent = recipe.image ? 
+                `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
+                recipe.emoji;
+
+            const actionsHtml = isAdmin ? 
+                `<div class="admin-recipe-actions">
+                    <button class="action-btn edit-btn" onclick="editRecipe(${recipe.id})" title="ערוך מתכון">✏️</button>
+                    <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
+                </div>` : '';
+
+            card.innerHTML = `
+                ${actionsHtml}
+                <div class="recipe-image" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+                    ${imageContent}
+                </div>
+                <div class="recipe-content" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+                    <h3 class="recipe-title">${recipe.name}</h3>
+                    <p class="recipe-description">${recipe.description}</p>
+                    <div class="recipe-meta">
+                        <div class="recipe-time">⏱️ ${recipe.time} דקות</div>
+                        <div class="recipe-difficulty">${recipe.difficulty}</div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Show recipe detail modal
+        function showRecipeDetail(recipe) {
+            const modal = document.getElementById('recipe-modal');
+            const detail = document.getElementById('recipe-detail');
+
+            detail.innerHTML = `
+                <h2>${recipe.name}</h2>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <span><strong>קטגוריה:</strong> ${recipe.category}</span>
+                    <span><strong>זמן:</strong> ${recipe.time} דקות</span>
+                    <span><strong>מנות:</strong> ${recipe.servings}</span>
+                    <span><strong>רמה:</strong> ${recipe.difficulty}</span>
+                </div>
+                <p style="margin-bottom: 30px; font-size: 1.1rem; color: #bdc3c7;">${recipe.description}</p>
+                
+                <h3 style="color: #f39c12; margin-bottom: 15px;">רכיבים:</h3>
+                <ul class="ingredients-list">
+                    ${recipe.ingredients.map(ingredient => `<li>• ${ingredient}</li>`).join('')}
+                </ul>
+                
+                <h3 style="color: #f39c12; margin-bottom: 15px;">הוראות הכנה:</h3>
+                <ol class="instructions-list">
+                    ${recipe.instructions.map((instruction, index) => `<li><strong>שלב ${index + 1}:</strong> ${instruction}</li>`).join('')}
+                </ol>
+                
+                <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(243, 156, 18, 0.1); border-radius: 15px; border: 2px solid rgba(243, 156, 18, 0.3);">
+                    <h3 style="color: #f39c12; font-size: 1.5rem; margin: 0;">🍽️ בתיאבון! 🍽️</h3>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('show');
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('recipe-modal');
+            modal.classList.remove('show');
+            modal.classList.add('hidden');
+        }
+
+        // Show add recipe form
+        function showAddRecipeForm() {
+            editingRecipe = null;
+            document.getElementById('form-title').textContent = 'הוספת מתכון חדש';
+            document.getElementById('save-btn').textContent = 'שמור מתכון';
+            document.getElementById('recipe-form').reset();
+            document.getElementById('recipe-id').value = '';
+            
+            const modal = document.getElementById('recipe-form-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('show');
+        }
+
+        // Edit recipe
+        function editRecipe(recipeId) {
+            const recipe = recipes.find(r => r.id === recipeId);
+            if (!recipe) return;
+
+            editingRecipe = recipe;
+            document.getElementById('form-title').textContent = 'עריכת מתכון';
+            document.getElementById('save-btn').textContent = 'עדכן מתכון';
+            
+            // Fill form with recipe data
+            document.getElementById('recipe-id').value = recipe.id;
+            document.getElementById('recipe-name').value = recipe.name;
+            document.getElementById('recipe-category').value = recipe.category;
+            document.getElementById('recipe-difficulty').value = recipe.difficulty;
+            document.getElementById('recipe-time').value = recipe.time;
+            document.getElementById('recipe-servings').value = recipe.servings;
+            document.getElementById('recipe-image').value = recipe.image || '';
+            document.getElementById('recipe-description').value = recipe.description;
+            document.getElementById('recipe-ingredients').value = recipe.ingredients.join('\n');
+            document.getElementById('recipe-instructions').value = recipe.instructions.join('\n');
+            
+            const modal = document.getElementById('recipe-form-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('show');
+        }
+
+        // Close recipe form
+        function closeRecipeForm() {
+            const modal = document.getElementById('recipe-form-modal');
+            modal.classList.remove('show');
+            modal.classList.add('hidden');
+            editingRecipe = null;
+        }
+
+        // Delete recipe
+        async function deleteRecipe(recipeId) {
+            if (!confirm('האם אתה בטוח שברצונך למחוק את המתכון?')) {
+                return;
+            }
+
+            const recipeIndex = recipes.findIndex(r => r.id === recipeId);
+            if (recipeIndex > -1) {
+                recipes.splice(recipeIndex, 1);
+                
+                // Update all displays
+                loadFeaturedRecipes();
+                loadAllRecipes();
+                loadCategories();
+                loadAdminRecipes();
+                loadAdminStats();
+
+                // Try to delete from Firebase
+                if (isFirebaseEnabled) {
+                    try {
+                        await deleteRecipeFromFirebase(recipeId);
+                        showSuccessMessage('המתכון נמחק בהצלחה! 🗑️');
+                    } catch (error) {
+                        showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
+                    }
+                } else {
+                    showSuccessMessage('המתכון נמחק מהזיכרון המקומי', 'warning');
+                }
+            }
+        }
+
+        // Load categories
+        function loadCategories() {
+            const container = document.getElementById('categories-grid');
+            container.innerHTML = '';
+
+            const categories = [
+                { name: 'בשרים', emoji: '🥩', count: recipes.filter(r => r.category === 'בשרים').length },
+                { name: 'עוף', emoji: '🍗', count: recipes.filter(r => r.category === 'עוף').length },
+                { name: 'דגים', emoji: '🐟', count: recipes.filter(r => r.category === 'דגים').length },
+                { name: 'צמחוני', emoji: '🥗', count: recipes.filter(r => r.category === 'צמחוני').length },
+                { name: 'מתוקים', emoji: '🍰', count: recipes.filter(r => r.category === 'מתוקים').length },
+                { name: 'סלטים', emoji: '🥙', count: recipes.filter(r => r.category === 'סלטים').length }
+            ];
+
+            categories.forEach(category => {
+                card.className = 'recipe-card fade-in';
+                card.onclick = () => filterByCategory(category.name);
+
+                card.innerHTML = `
+                    <div class="recipe-image">
+                        ${category.emoji}
+                    </div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">${category.name}</h3>
+                        <p class="recipe-description">${category.count} מתכונים</p>
+                        <div class="recipe-meta">
+                            <span>לחץ לצפייה</span>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            showSection('recipes');
+            document.getElementById('categoryFilter2').value = category;
+            searchRecipes();
+        }
+
+        // Search recipes
+        function searchRecipes() {
+            const searchTerm = (document.getElementById('searchInput').value || document.getElementById('searchInput2').value || '').toLowerCase();
+            const category = document.getElementById('categoryFilter').value || document.getElementById('categoryFilter2').value || '';
+            const difficulty = document.getElementById('difficultyFilter').value || document.getElementById('difficultyFilter2').value || '';
+
+            const filtered = recipes.filter(recipe => {
+                const matchesSearch = recipe.name.toLowerCase().includes(searchTerm) || 
+                                    recipe.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || recipe.category === category;
+                const matchesDifficulty = !difficulty || recipe.difficulty === difficulty;
+
+                return matchesSearch && matchesCategory && matchesDifficulty;
+            });
+
+            const container = currentSection === 'home' ? 
+                document.getElementById('featured-recipes') : 
+                document.getElementById('all-recipes');
+            
+            container.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #bdc3c7;">
+                        <h3>לא נמצאו מתכונים</h3>
+                        <p>נסה לשנות את קריטריוני החיפוש</p>
+                    </div>
+                `;
+            } else {
+                filtered.forEach(recipe => {
+                    container.appendChild(createRecipeCard(recipe, false));
+                });
+            }
+        }
+
+        // Handle recipe form submission
+        document.getElementById('recipe-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('save-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'שומר...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                name: document.getElementById('recipe-name').value,
+                category: document.getElementById('recipe-category').value,
+                difficulty: document.getElementById('recipe-difficulty').value,
+                time: parseInt(document.getElementById('recipe-time').value),
+                servings: parseInt(document.getElementById('recipe-servings').value),
+                description: document.getElementById('recipe-description').value,
+                image: document.getElementById('recipe-image').value || null,
+                ingredients: document.getElementById('recipe-ingredients').value.split('\n').filter(item => item.trim()),
+                instructions: document.getElementById('recipe-instructions').value.split('\n').filter(item => item.trim()),
+                emoji: getRandomEmoji(document.getElementById('recipe-category').value)
+            };
+
+            if (editingRecipe) {
+                // Update existing recipe
+                const recipeIndex = recipes.findIndex(r => r.id === editingRecipe.id);
+                if (recipeIndex > -1) {
+                    recipes[recipeIndex] = { ...editingRecipe, ...formData };
+                    
+                    // Try to save to Firebase
+                    if (isFirebaseEnabled) {
+                        try {
+                            await saveRecipeToFirebase(recipes[recipeIndex]);
+                            showSuccessMessage('המתכון עודכן בהצלחה! ✅');
+                        } catch (error) {
+                            showSuccessMessage('המתכון עודכן מקומית (בעיה ברשת)', 'warning');
+                        }
+                    } else {
+                        showSuccessMessage('המתכון עודכן בזיכרון המקומי', 'warning');
+                    }
+                }
+            } else {
+                // Add new recipe
+                const newRecipe = {
+                    id: Date.now(),
+                    ...formData,
+                    createdAt: new Date().toISOString()
+                };
+
+                recipes.push(newRecipe);
+
+                // Try to save to Firebase
+                if (isFirebaseEnabled) {
+                    try {
+                        await saveRecipeToFirebase(newRecipe);
+                        showSuccessMessage('המתכון נשמר בהצלחה! 🔥');
+                    } catch (error) {
+                        showSuccessMessage('המתכון נשמר מקומית (בעיה ברשת)', 'warning');
+                    }
+                } else {
+                    showSuccessMessage('המתכון נשמר בזיכרון המקומי (זמני)', 'warning');
+                }
+            }
+
+            // Update all displays
+            loadFeaturedRecipes();
+            loadAllRecipes();
+            loadCategories();
+            loadAdminRecipes();
+            loadAdminStats();
+
+            // Close form
+            closeRecipeForm();
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Get random emoji
+        function getRandomEmoji(category) {
+            const emojis = {
+                'בשרים': ['🥩', '🍖', '🥓'],
+                'עוף': ['🍗', '🐔'],
+                'דגים': ['🐟', '🍣', '🦐'],
+                'צמחוני': ['🥗', '🥬', '🥕', '🥒'],
+                'מתוקים': ['🍰', '🧁', '🍪', '🍫'],
+                'סלטים': ['🥙', '🌯', '🥗']
+            };
+
+            const categoryEmojis = emojis[category] || ['🍽️'];
+            return categoryEmojis[Math.floor(Math.random() * categoryEmojis.length)];
+        }
+
+        // Show success message
+        function showSuccessMessage(message, type = 'success') {
+            const toast = document.createElement('div');
+            let bgColor, icon;
+            
+            switch(type) {
+                case 'error':
+                    bgColor = 'linear-gradient(45deg, #e74c3c, #c0392b)';
+                    icon = '❌';
+                    break;
+                case 'warning':
+                    bgColor = 'linear-gradient(45deg, #f39c12, #e67e22)';
+                    icon = '⚠️';
+                    break;
+                default:
+                    bgColor = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                    icon = '✅';
+            }
+                
+            toast.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: ${bgColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                z-index: 3000;
+                animation: slideInRight 0.5s ease, fadeOut 0.5s ease 3.5s forwards;
+                max-width: 300px;
+                word-wrap: break-word;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 4000);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchRecipes();
+        });
+
+        document.getElementById('searchInput2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchRecipes();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', searchRecipes);
+        document.getElementById('difficultyFilter').addEventListener('change', searchRecipes);
+        document.getElementById('categoryFilter2').addEventListener('change', searchRecipes);
+        document.getElementById('difficultyFilter2').addEventListener('change', searchRecipes);
+
+        // Close modals when clicking outside
+        document.getElementById('recipe-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.getElementById('recipe-form-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeRecipeForm();
+        });
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.remove('show');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileNav = document.getElementById('mobile-nav');
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileNav.contains(e.target) && !mobileBtn.contains(e.target)) {
+                mobileNav.classList.remove('show');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        showSection('home');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        showSection('recipes');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showSection('categories');
+                        break;
+                }
+            }
+            
+            if (e.key === 'Escape') {
+                closeModal();
+                closeRecipeForm();
+            }
+        });
+
+        // Initialize catering website link
+        function initCateringLink() {
+            document.getElementById('catering-website').href = 'https://mmmtweb2.github.io/israelFood/';
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            initCateringLink();
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -185,6 +1128,12 @@
             border: 2px solid #f39c12;
         }
 
+        .btn-admin {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+        }
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
@@ -197,6 +1146,10 @@
         .btn-secondary:hover {
             background: #f39c12;
             color: white;
+        }
+
+        .btn-admin:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
         }
 
         /* Search Bar */
@@ -257,6 +1210,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
+            cursor: pointer;
         }
 
         .recipe-card:hover {
@@ -270,30 +1224,52 @@
             right: 10px;
             display: none;
             gap: 5px;
+            z-index: 10;
         }
 
         .recipe-card:hover .recipe-actions {
             display: flex;
         }
 
+        .admin-recipe-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+
         .action-btn {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border: none;
             border-radius: 50%;
             color: white;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .delete-btn {
-            background: rgba(231, 76, 60, 0.8);
+            background: rgba(231, 76, 60, 0.9);
         }
 
         .delete-btn:hover {
             background: rgba(231, 76, 60, 1);
+            transform: scale(1.1);
+        }
+
+        .edit-btn {
+            background: rgba(52, 152, 219, 0.9);
+        }
+
+        .edit-btn:hover {
+            background: rgba(52, 152, 219, 1);
             transform: scale(1.1);
         }
 
@@ -469,39 +1445,44 @@
             color: #f39c12;
         }
 
-        /* Admin Mode Indicator */
-        .admin-indicator {
-            position: fixed;
-            top: 90px;
-            left: 20px;
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 8px 16px;
+        /* Admin Hero */
+        .admin-hero {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #a93226 100%);
+            background-size: cover;
+            background-position: center;
             border-radius: 20px;
-            font-size: 0.9rem;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-            animation: pulse 2s infinite;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .admin-indicator .close-admin {
-            margin-left: 10px;
-            background: none;
-            border: none;
+        .add-recipe-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
             color: white;
+            border: none;
+            font-size: 2rem;
             cursor: pointer;
-            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .admin-indicator .close-admin:hover {
-            color: #ecf0f1;
+        .add-recipe-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(39, 174, 96, 0.6);
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
         }
 
         @keyframes slideInRight {
@@ -528,11 +1509,11 @@
                 display: block;
             }
             
-            .hero h1 {
+            .hero h1, .admin-hero h1 {
                 font-size: 2.5rem;
             }
             
-            .hero p {
+            .hero p, .admin-hero p {
                 font-size: 1.2rem;
             }
             
@@ -566,7 +1547,7 @@
                 padding: 20px 0;
             }
             
-            .hero {
+            .hero, .admin-hero {
                 padding: 40px 20px;
             }
             
@@ -577,14 +1558,22 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            .add-recipe-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                left: 20px;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
+            .hero h1, .admin-hero h1 {
                 font-size: 2rem;
             }
             
-            .hero p {
+            .hero p, .admin-hero p {
                 font-size: 1rem;
             }
             
@@ -765,6 +1754,54 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(243, 156, 18, 0.3);
         }
+
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            padding: 10px 20px;
+            background: rgba(52, 73, 94, 0.9);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: rgba(52, 73, 94, 1);
+            transform: translateY(-2px);
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(243, 156, 18, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #bdc3c7;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -779,7 +1816,6 @@
                     <li><a href="javascript:void(0)" onclick="showSection('home')">בית</a></li>
                     <li><a href="javascript:void(0)" onclick="showSection('recipes')">מתכונים</a></li>
                     <li><a href="javascript:void(0)" onclick="showSection('categories')">קטגוריות</a></li>
-                    <li><a href="javascript:void(0)" onclick="checkAdminAccess()">ניהול</a></li>
                 </ul>
                 <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
             </nav>
@@ -796,6 +1832,7 @@
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('recipes')">עיון במתכונים</button>
                         <button class="btn btn-secondary" onclick="showSection('categories')">קטגוריות</button>
+                        <button class="btn btn-admin" onclick="checkAdminAccess()">🔧 ניהול האתר</button>
                     </div>
                 </div>
 
@@ -815,990 +1852,4 @@
                             <option value="">כל הרמות</option>
                             <option value="קל">קל</option>
                             <option value="בינוני">בינוני</option>
-                            <option value="מתקדם">מתקדם</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="searchRecipes()">חיפוש</button>
-                    </div>
-                </div>
-
-                <div class="section-header">
-                    <h2 class="section-title">מתכונים פופולריים</h2>
-                </div>
-
-                <div class="recipes-grid" id="featured-recipes">
-                    <!-- Featured recipes will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Recipes Section -->
-            <section id="recipes-section" class="section hidden">
-                <div class="section-header">
-                    <h2 class="section-title">כל המתכונים</h2>
-                </div>
-
-                <div class="search-section">
-                    <div class="search-bar">
-                        <input type="text" class="search-input" placeholder="חיפוש מתכונים..." id="searchInput2">
-                        <select class="filter-select" id="categoryFilter2">
-                            <option value="">כל הקטגוריות</option>
-                            <option value="בשרים">בשרים</option>
-                            <option value="עוף">עוף</option>
-                            <option value="דגים">דגים</option>
-                            <option value="צמחוני">צמחוני</option>
-                            <option value="מתוקים">מתוקים</option>
-                            <option value="סלטים">סלטים</option>
-                        </select>
-                        <select class="filter-select" id="difficultyFilter2">
-                            <option value="">כל הרמות</option>
-                            <option value="קל">קל</option>
-                            <option value="בינוני">בינוני</option>
-                            <option value="מתקדם">מתקדם</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="searchRecipes()">חיפוש</button>
-                    </div>
-                </div>
-
-                <div class="recipes-grid" id="all-recipes">
-                    <!-- All recipes will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Categories Section -->
-            <section id="categories-section" class="section hidden">
-                <div class="section-header">
-                    <h2 class="section-title">קטגוריות</h2>
-                </div>
-
-                <div class="recipes-grid" id="categories-grid">
-                    <!-- Categories will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Admin Section -->
-            <section id="admin-section" class="section hidden">
-                <div class="section-header">
-                    <h2 class="section-title">פאנל ניהול</h2>
-                </div>
-
-                <div class="admin-panel">
-                    <h3 style="color: #f39c12; margin-bottom: 20px; font-size: 1.5rem;">הוספת מתכון חדש</h3>
-                    <form class="admin-form" id="recipe-form">
-                        <div class="form-group">
-                            <label class="form-label">שם המתכון</label>
-                            <input type="text" class="form-input" id="recipe-name" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">קטגוריה</label>
-                                <select class="form-input" id="recipe-category" required>
-                                    <option value="">בחר קטגוריה</option>
-                                    <option value="בשרים">בשרים</option>
-                                    <option value="עוף">עוף</option>
-                                    <option value="דגים">דגים</option>
-                                    <option value="צמחוני">צמחוני</option>
-                                    <option value="מתוקים">מתוקים</option>
-                                    <option value="סלטים">סלטים</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">רמת קושי</label>
-                                <select class="form-input" id="recipe-difficulty" required>
-                                    <option value="">בחר רמה</option>
-                                    <option value="קל">קל</option>
-                                    <option value="בינוני">בינוני</option>
-                                    <option value="מתקדם">מתקדם</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">זמן הכנה (דקות)</label>
-                                <input type="number" class="form-input" id="recipe-time" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">מספר מנות</label>
-                                <input type="number" class="form-input" id="recipe-servings" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">תמונת המתכון (URL)</label>
-                            <input type="url" class="form-input" id="recipe-image" placeholder="https://example.com/image.jpg">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">תיאור קצר</label>
-                            <textarea class="form-textarea" id="recipe-description" rows="3" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">רכיבים (כל רכיב בשורה נפרדת)</label>
-                            <textarea class="form-textarea" id="recipe-ingredients" rows="6" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">הוראות הכנה (כל שלב בשורה נפרדת)</label>
-                            <textarea class="form-textarea" id="recipe-instructions" rows="8" required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">שמור מתכון</button>
-                    </form>
-                </div>
-
-                <!-- Admin Recipes Management -->
-                <div class="admin-panel" style="margin-top: 40px;">
-                    <h3 style="color: #f39c12; margin-bottom: 20px; font-size: 1.5rem;">ניהול מתכונים קיימים</h3>
-                    <div class="recipes-grid" id="admin-recipes">
-                        <!-- Admin recipes will be loaded here -->
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Mobile Navigation -->
-    <div id="mobile-nav" class="mobile-nav">
-        <a href="javascript:void(0)" onclick="showSection('home'); closeMobileMenu()">בית</a>
-        <a href="javascript:void(0)" onclick="showSection('recipes'); closeMobileMenu()">מתכונים</a>
-        <a href="javascript:void(0)" onclick="showSection('categories'); closeMobileMenu()">קטגוריות</a>
-        <a href="javascript:void(0)" onclick="checkAdminAccess(); closeMobileMenu()">ניהול</a>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Food קייטרינג</h3>
-                    <p>קייטרינג מקצועי לאירועים • אוכל ביתי איכותי • שירות על האש</p>
-                    <p><a href="https://mmmtweb2.github.io/israelFood/" target="_blank" id="catering-website">לאתר הקייטרינג הראשי ←</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>צור קשר</h3>
-                    <p><a href="tel:0533918487">📞 טלפון: 053-391-8487</a></p>
-                    <p><a href="https://wa.me/972533918487" target="_blank">💬 וואטסאפ: 053-391-8487</a></p>
-                    <p><a href="mailto:Israelt1770@gmail.com">📧 מייל: Israelt1770@gmail.com</a></p>
-                    <p><a href="https://www.instagram.com/israel_tirnuer" target="_blank">📷 אינסטגרם: @israel_tirnuer</a></p>
-                    <p><a href="https://mmmtweb2.github.io/israelFood/" target="_blank">🌐 אתר הקייטרינג</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>קישורים מהירים</h3>
-                    <p><a href="javascript:void(0)" onclick="showSection('recipes')">כל המתכונים</a></p>
-                    <p><a href="javascript:void(0)" onclick="showSection('categories')">קטגוריות</a></p>
-                    <p><a href="javascript:void(0)" onclick="filterByCategory('בשרים')">מתכוני בשר</a></p>
-                    <p><a href="javascript:void(0)" onclick="filterByCategory('צמחוני')">מתכונים צמחוניים</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Food קייטרינג. כל הזכויות שמורות.</p>
-                <p>האתר נבנה בידי <a href="https://mmmtweb2.github.io/MT/index.html" target="_blank">MMT Web Development</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Admin Mode Indicator -->
-    <div id="admin-indicator" class="admin-indicator" style="display: none;">
-        🔧 מצב ניהול פעיל
-        <button class="close-admin" onclick="exitAdminMode()" title="יציאה ממצב ניהול">✕</button>
-    </div>
-
-    <!-- Floating Action Button -->
-    <button class="floating-btn" onclick="checkAdminAccess()" title="ניהול">⚙️</button>
-
-    <!-- Recipe Detail Modal -->
-    <div id="recipe-modal" class="modal hidden">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <div id="recipe-detail" class="recipe-detail">
-                <!-- Recipe details will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDjStKh_pbzlQ3KVAEV7zrK1JBw25HiKh0",
-            authDomain: "israelfood-a4c0f.firebaseapp.com",
-            projectId: "israelfood-a4c0f",
-            storageBucket: "israelfood-a4c0f.firebasestorage.app",
-            messagingSenderId: "76099718868",
-            appId: "1:76099718868:web:51127e30105c9cfab5b541",
-            measurementId: "G-EN67405XKJ"
-        };
-
-        // Initialize Firebase
-        let db;
-        let isFirebaseEnabled = false;
-
-        function initFirebase() {
-            try {
-                firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
-                isFirebaseEnabled = true;
-                console.log("🔥 Firebase מחובר בהצלחה!");
-                
-                // Load recipes from Firebase
-                loadRecipesFromFirebase();
-            } catch (error) {
-                console.log("⚠️ שגיאה בחיבור ל-Firebase, משתמש בזיכרון מקומי:", error);
-                isFirebaseEnabled = false;
-            }
-        }
-
-        // Save recipe to Firebase
-        async function saveRecipeToFirebase(recipe) {
-            if (!isFirebaseEnabled) return false;
-            
-            try {
-                // Add timeout for Firebase operations
-                const savePromise = db.collection("recipes").doc(recipe.id.toString()).set(recipe);
-                const timeoutPromise = new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Timeout')), 10000) // 10 seconds timeout
-                );
-                
-                await Promise.race([savePromise, timeoutPromise]);
-                console.log("✅ מתכון נשמר ל-Firebase");
-                return true;
-            } catch (error) {
-                console.error("❌ שגיאה בשמירה ל-Firebase:", error);
-                if (error.message === 'Timeout') {
-                    console.log("⏱️ תם הזמן לשמירה - נשמר בזיכרון מקומי");
-                }
-                return false;
-            }
-        }
-
-        // Load recipes from Firebase
-        async function loadRecipesFromFirebase() {
-            if (!isFirebaseEnabled) return;
-            
-            try {
-                showLoadingMessage("טוען מתכונים...");
-                
-                // Add timeout for loading
-                const loadPromise = db.collection("recipes").orderBy("id").get();
-                const timeoutPromise = new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Timeout')), 8000) // 8 seconds timeout
-                );
-                
-                const snapshot = await Promise.race([loadPromise, timeoutPromise]);
-                const firebaseRecipes = [];
-                
-                snapshot.forEach(doc => {
-                    firebaseRecipes.push(doc.data());
-                });
-
-                if (firebaseRecipes.length > 0) {
-                    recipes = firebaseRecipes;
-                    console.log(`🔥 נטענו ${recipes.length} מתכונים מ-Firebase`);
-                } else {
-                    console.log("📝 אין מתכונים ב-Firebase, משתמש בדוגמאות");
-                }
-
-                hideLoadingMessage();
-                loadFeaturedRecipes();
-                loadAllRecipes();
-                loadCategories();
-                
-            } catch (error) {
-                console.error("❌ שגיאה בטעינה מ-Firebase:", error);
-                hideLoadingMessage();
-                if (error.message === 'Timeout') {
-                    showSuccessMessage('חיבור איטי לשרת - משתמש בנתונים מקומיים', 'warning');
-                }
-            }
-        }
-
-        // Delete recipe from Firebase
-        async function deleteRecipeFromFirebase(recipeId) {
-            if (!isFirebaseEnabled) return false;
-            
-            try {
-                await db.collection("recipes").doc(recipeId.toString()).delete();
-                console.log("🗑️ מתכון נמחק מ-Firebase");
-                return true;
-            } catch (error) {
-                console.error("❌ שגיאה במחיקה מ-Firebase:", error);
-                return false;
-            }
-        }
-
-        // Show loading message
-        function showLoadingMessage(message) {
-            const loading = document.createElement('div');
-            loading.id = 'loading-message';
-            loading.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0, 0, 0, 0.9);
-                color: #f39c12;
-                padding: 20px 40px;
-                border-radius: 10px;
-                z-index: 3000;
-                font-size: 1.2rem;
-                backdrop-filter: blur(10px);
-            `;
-            loading.innerHTML = `
-                <div style="text-align: center;">
-                    <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
-                    ${message}
-                </div>
-            `;
-            document.body.appendChild(loading);
-        }
-
-        function hideLoadingMessage() {
-            const loading = document.getElementById('loading-message');
-            if (loading) {
-                loading.remove();
-            }
-        }
-
-        // In-memory storage for recipes (fallback)
-        let recipes = [
-            {
-                id: 1,
-                name: "סטייק על האש",
-                category: "בשרים",
-                difficulty: "בינוני",
-                time: 30,
-                servings: 4,
-                description: "סטייק עסיסי ומושלם על האש עם תיבול מיוחד",
-                ingredients: ["1 ק\"ג סטייק", "שמן זית", "מלח גס", "פלפל שחור", "שום", "רוזמרין"],
-                instructions: ["חמם את הגריל", "תבל את הסטייק", "צלה 4 דקות מכל צד", "תן לנוח 5 דקות", "הגש חם"],
-                emoji: "🥩"
-            },
-            {
-                id: 2,
-                name: "סלט טבעוני",
-                category: "צמחוני",
-                difficulty: "קל",
-                time: 15,
-                servings: 2,
-                description: "סלט טרי ובריא עם ירקות עונתיים",
-                ingredients: ["חסה", "עגבניות שרי", "מלפפון", "גזר", "רוטב טחינה", "לימון"],
-                instructions: ["חתוך את הירקות", "הכן רוטב טחינה", "ערבב הכל", "הגש מיד"],
-                emoji: "🥗"
-            },
-            {
-                id: 3,
-                name: "עוגת שוקולד",
-                category: "מתוקים",
-                difficulty: "מתקדם",
-                time: 90,
-                servings: 8,
-                description: "עוגת שוקולד עשירה ודקדנטית",
-                ingredients: ["קמח", "שוקולד מריר", "חמאה", "סוכר", "ביצים", "אבקת אפייה"],
-                instructions: ["הכן את התבנית", "ממס שוקולד וחמאה", "ערבב את החומרים", "אפה 45 דקות", "קרר לפני הגשה"],
-                emoji: "🍰"
-            }
-        ];
-
-        let currentSection = 'home';
-        let isAdminMode = false; // Track admin mode globally
-
-        // Initialize the app
-        function init() {
-            initFirebase();
-            
-            // If Firebase is not available, load local recipes
-            if (!isFirebaseEnabled) {
-                loadFeaturedRecipes();
-                loadAllRecipes();
-                loadCategories();
-            }
-        }
-
-        // Check admin access with password
-        function checkAdminAccess() {
-            if (isAdminMode) {
-                // If already in admin mode, just show admin section
-                showSection('admin');
-                return;
-            }
-            
-            const password = prompt('הכנס סיסמת מנהל:');
-            if (password === 'admin123') {
-                isAdminMode = true;
-                showAdminIndicator();
-                showSection('admin');
-                // Refresh all displays to show delete buttons
-                refreshAllDisplays();
-            } else if (password !== null) {
-                alert('סיסמה שגויה!');
-            }
-        }
-
-        // Exit admin mode
-        function exitAdminMode() {
-            isAdminMode = false;
-            hideAdminIndicator();
-            showSection('home');
-            // Refresh all displays to hide delete buttons
-            refreshAllDisplays();
-        }
-
-        // Show admin indicator
-        function showAdminIndicator() {
-            document.getElementById('admin-indicator').style.display = 'block';
-        }
-
-        // Hide admin indicator
-        function hideAdminIndicator() {
-            document.getElementById('admin-indicator').style.display = 'none';
-        }
-
-        // Refresh all displays
-        function refreshAllDisplays() {
-            loadFeaturedRecipes();
-            loadAllRecipes();
-            loadCategories();
-            if (currentSection === 'admin') {
-                loadAdminRecipes();
-            }
-        }
-
-        // Load recipes for admin management
-        function loadAdminRecipes() {
-            const container = document.getElementById('admin-recipes');
-            container.innerHTML = '';
-
-            if (recipes.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #bdc3c7;">
-                        <h3>אין מתכונים</h3>
-                        <p>הוסף מתכון ראשון באמצעות הטופס למעלה</p>
-                    </div>
-                `;
-                return;
-            }
-
-            recipes.forEach(recipe => {
-                container.appendChild(createAdminRecipeCard(recipe));
-            });
-        }
-
-        // Create admin recipe card with prominent delete button
-        function createAdminRecipeCard(recipe) {
-            const card = document.createElement('div');
-            card.className = 'recipe-card fade-in';
-            
-            const imageContent = recipe.image ? 
-                `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
-                recipe.emoji;
-
-            card.innerHTML = `
-                <div class="recipe-actions" style="display: flex; opacity: 1;">
-                    <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
-                </div>
-                <div class="recipe-image" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
-                    ${imageContent}
-                </div>
-                <div class="recipe-content" onclick="showRecipeDetail(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
-                    <h3 class="recipe-title">${recipe.name}</h3>
-                    <p class="recipe-description">${recipe.description}</p>
-                    <div class="recipe-meta">
-                        <div class="recipe-time">
-                            ⏱️ ${recipe.time} דקות
-                        </div>
-                        <div class="recipe-difficulty">${recipe.difficulty}</div>
-                    </div>
-                </div>
-            `;
-
-            return card;
-        }
-
-        // Show different sections
-        function showSection(section) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            
-            // Show selected section
-            document.getElementById(section + '-section').classList.remove('hidden');
-            currentSection = section;
-
-            // Update content based on section
-            if (section === 'recipes') {
-                loadAllRecipes();
-            } else if (section === 'categories') {
-                loadCategories();
-            } else if (section === 'home') {
-                loadFeaturedRecipes();
-            } else if (section === 'admin') {
-                loadAdminRecipes();
-            }
-        }
-
-        // Load featured recipes for home page
-        function loadFeaturedRecipes() {
-            const container = document.getElementById('featured-recipes');
-            container.innerHTML = '';
-
-            // Show first 3 recipes as featured
-            const featured = recipes.slice(0, 3);
-            featured.forEach(recipe => {
-                container.appendChild(createRecipeCard(recipe));
-            });
-        }
-
-        // Load all recipes
-        function loadAllRecipes() {
-            const container = document.getElementById('all-recipes');
-            container.innerHTML = '';
-
-            recipes.forEach(recipe => {
-                container.appendChild(createRecipeCard(recipe));
-            });
-        }
-
-        // Create recipe card element
-        function createRecipeCard(recipe) {
-            const card = document.createElement('div');
-            card.className = 'recipe-card fade-in';
-            card.onclick = (e) => {
-                // Don't open modal if clicking on action buttons
-                if (!e.target.closest('.recipe-actions')) {
-                    showRecipeDetail(recipe);
-                }
-            };
-
-            const imageContent = recipe.image ? 
-                `<img src="${recipe.image}" alt="${recipe.name}" style="width: 100%; height: 100%; object-fit: cover;">` :
-                recipe.emoji;
-
-            // Show delete button only if in admin mode
-            const deleteButton = isAdminMode ? 
-                `<div class="recipe-actions">
-                    <button class="action-btn delete-btn" onclick="deleteRecipe(${recipe.id})" title="מחק מתכון">🗑️</button>
-                </div>` : '';
-
-            card.innerHTML = `
-                ${deleteButton}
-                <div class="recipe-image">
-                    ${imageContent}
-                </div>
-                <div class="recipe-content">
-                    <h3 class="recipe-title">${recipe.name}</h3>
-                    <p class="recipe-description">${recipe.description}</p>
-                    <div class="recipe-meta">
-                        <div class="recipe-time">
-                            ⏱️ ${recipe.time} דקות
-                        </div>
-                        <div class="recipe-difficulty">${recipe.difficulty}</div>
-                    </div>
-                </div>
-            `;
-
-            return card;
-        }
-
-        // Show recipe detail modal
-        function showRecipeDetail(recipe) {
-            const modal = document.getElementById('recipe-modal');
-            const detail = document.getElementById('recipe-detail');
-
-            detail.innerHTML = `
-                <h2>${recipe.name}</h2>
-                <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
-                    <span><strong>קטגוריה:</strong> ${recipe.category}</span>
-                    <span><strong>זמן:</strong> ${recipe.time} דקות</span>
-                    <span><strong>מנות:</strong> ${recipe.servings}</span>
-                    <span><strong>רמה:</strong> ${recipe.difficulty}</span>
-                </div>
-                <p style="margin-bottom: 30px; font-size: 1.1rem; color: #bdc3c7;">${recipe.description}</p>
-                
-                <h3 style="color: #f39c12; margin-bottom: 15px;">רכיבים:</h3>
-                <ul class="ingredients-list">
-                    ${recipe.ingredients.map(ingredient => `<li>• ${ingredient}</li>`).join('')}
-                </ul>
-                
-                <h3 style="color: #f39c12; margin-bottom: 15px;">הוראות הכנה:</h3>
-                <ol class="instructions-list">
-                    ${recipe.instructions.map((instruction, index) => `<li><strong>שלב ${index + 1}:</strong> ${instruction}</li>`).join('')}
-                </ol>
-                
-                <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(243, 156, 18, 0.1); border-radius: 15px; border: 2px solid rgba(243, 156, 18, 0.3);">
-                    <h3 style="color: #f39c12; font-size: 1.5rem; margin: 0;">🍽️ בתיאבון! 🍽️</h3>
-                </div>
-            `;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('show');
-        }
-
-        // Close modal
-        function closeModal() {
-            const modal = document.getElementById('recipe-modal');
-            modal.classList.remove('show');
-            modal.classList.add('hidden');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('recipe-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Load categories
-        function loadCategories() {
-            const container = document.getElementById('categories-grid');
-            container.innerHTML = '';
-
-            const categories = [
-                { name: 'בשרים', emoji: '🥩', count: recipes.filter(r => r.category === 'בשרים').length },
-                { name: 'עוף', emoji: '🍗', count: recipes.filter(r => r.category === 'עוף').length },
-                { name: 'דגים', emoji: '🐟', count: recipes.filter(r => r.category === 'דגים').length },
-                { name: 'צמחוני', emoji: '🥗', count: recipes.filter(r => r.category === 'צמחוני').length },
-                { name: 'מתוקים', emoji: '🍰', count: recipes.filter(r => r.category === 'מתוקים').length },
-                { name: 'סלטים', emoji: '🥙', count: recipes.filter(r => r.category === 'סלטים').length }
-            ];
-
-            categories.forEach(category => {
-                const card = document.createElement('div');
-                card.className = 'recipe-card fade-in';
-                card.onclick = () => filterByCategory(category.name);
-
-                card.innerHTML = `
-                    <div class="recipe-image">
-                        ${category.emoji}
-                    </div>
-                    <div class="recipe-content">
-                        <h3 class="recipe-title">${category.name}</h3>
-                        <p class="recipe-description">${category.count} מתכונים</p>
-                        <div class="recipe-meta">
-                            <span>לחץ לצפייה</span>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        // Filter recipes by category
-        function filterByCategory(category) {
-            showSection('recipes');
-            document.getElementById('categoryFilter2').value = category;
-            searchRecipes();
-        }
-
-        // Search recipes
-        function searchRecipes() {
-            const searchTerm = (document.getElementById('searchInput').value || document.getElementById('searchInput2').value || '').toLowerCase();
-            const category = document.getElementById('categoryFilter').value || document.getElementById('categoryFilter2').value || '';
-            const difficulty = document.getElementById('difficultyFilter').value || document.getElementById('difficultyFilter2').value || '';
-
-            const filtered = recipes.filter(recipe => {
-                const matchesSearch = recipe.name.toLowerCase().includes(searchTerm) || 
-                                    recipe.description.toLowerCase().includes(searchTerm);
-                const matchesCategory = !category || recipe.category === category;
-                const matchesDifficulty = !difficulty || recipe.difficulty === difficulty;
-
-                return matchesSearch && matchesCategory && matchesDifficulty;
-            });
-
-            // Update the appropriate container based on current section
-            const container = currentSection === 'home' ? 
-                document.getElementById('featured-recipes') : 
-                document.getElementById('all-recipes');
-            
-            container.innerHTML = '';
-            
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #bdc3c7;">
-                        <h3>לא נמצאו מתכונים</h3>
-                        <p>נסה לשנות את קריטריוני החיפוש</p>
-                    </div>
-                `;
-            } else {
-                filtered.forEach(recipe => {
-                    container.appendChild(createRecipeCard(recipe));
-                });
-            }
-        }
-
-        // Handle recipe form submission
-        document.getElementById('recipe-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'שומר...';
-            submitBtn.disabled = true;
-
-            const newRecipe = {
-                id: Date.now(), // Use timestamp as unique ID
-                name: document.getElementById('recipe-name').value,
-                category: document.getElementById('recipe-category').value,
-                difficulty: document.getElementById('recipe-difficulty').value,
-                time: parseInt(document.getElementById('recipe-time').value),
-                servings: parseInt(document.getElementById('recipe-servings').value),
-                description: document.getElementById('recipe-description').value,
-                image: document.getElementById('recipe-image').value || null,
-                ingredients: document.getElementById('recipe-ingredients').value.split('\n').filter(item => item.trim()),
-                instructions: document.getElementById('recipe-instructions').value.split('\n').filter(item => item.trim()),
-                emoji: getRandomEmoji(document.getElementById('recipe-category').value),
-                createdAt: new Date().toISOString()
-            };
-
-            // Add to local array first for immediate feedback
-            recipes.push(newRecipe);
-            
-            // Update UI immediately
-            loadFeaturedRecipes();
-            loadAllRecipes();
-            loadCategories();
-
-            // Try to save to Firebase in background
-            if (isFirebaseEnabled) {
-                try {
-                    const saved = await saveRecipeToFirebase(newRecipe);
-                    if (saved) {
-                        showSuccessMessage('המתכון נשמר בהצלחה! 🔥');
-                    } else {
-                        showSuccessMessage('המתכון נשמר מקומית (בעיה ברשת)', 'warning');
-                    }
-                } catch (error) {
-                    showSuccessMessage('המתכון נשמר מקומית (בעיה ברשת)', 'warning');
-                }
-            } else {
-                showSuccessMessage('המתכון נשמר בזיכרון המקומי (זמני)', 'warning');
-            }
-
-            // Clear form
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        });
-
-        // Get random emoji based on category
-        function getRandomEmoji(category) {
-            const emojis = {
-                'בשרים': ['🥩', '🍖', '🥓'],
-                'עוף': ['🍗', '🐔'],
-                'דגים': ['🐟', '🍣', '🦐'],
-                'צמחוני': ['🥗', '🥬', '🥕', '🥒'],
-                'מתוקים': ['🍰', '🧁', '🍪', '🍫'],
-                'סלטים': ['🥙', '🌯', '🥗']
-            };
-
-            const categoryEmojis = emojis[category] || ['🍽️'];
-            return categoryEmojis[Math.floor(Math.random() * categoryEmojis.length)];
-        }
-
-        // Show success message
-        function showSuccessMessage(message, type = 'success') {
-            const toast = document.createElement('div');
-            let bgColor, icon;
-            
-            switch(type) {
-                case 'error':
-                    bgColor = 'linear-gradient(45deg, #e74c3c, #c0392b)';
-                    icon = '❌';
-                    break;
-                case 'warning':
-                    bgColor = 'linear-gradient(45deg, #f39c12, #e67e22)';
-                    icon = '⚠️';
-                    break;
-                default:
-                    bgColor = 'linear-gradient(45deg, #27ae60, #2ecc71)';
-                    icon = '✅';
-            }
-                
-            toast.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 30px;
-                background: ${bgColor};
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-                z-index: 3000;
-                animation: slideInRight 0.5s ease, fadeOut 0.5s ease 3.5s forwards;
-                max-width: 300px;
-                word-wrap: break-word;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            `;
-            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
-
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 4000);
-        }
-
-        // Delete recipe function
-        async function deleteRecipe(recipeId) {
-            if (!confirm('האם אתה בטוח שברצונך למחוק את המתכון?')) {
-                return;
-            }
-
-            // Remove from local array immediately
-            const recipeIndex = recipes.findIndex(r => r.id === recipeId);
-            if (recipeIndex > -1) {
-                const deletedRecipe = recipes.splice(recipeIndex, 1)[0];
-                
-                // Update UI immediately
-                loadFeaturedRecipes();
-                loadAllRecipes();
-                loadCategories();
-
-                // Try to delete from Firebase in background
-                if (isFirebaseEnabled) {
-                    try {
-                        const deleted = await deleteRecipeFromFirebase(recipeId);
-                        if (deleted) {
-                            showSuccessMessage('המתכון נמחק בהצלחה! 🗑️');
-                        } else {
-                            showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
-                        }
-                    } catch (error) {
-                        showSuccessMessage('המתכון נמחק מקומית (בעיה ברשת)', 'warning');
-                    }
-                } else {
-                }
-            }
-        }
-
-        // Search on Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchRecipes();
-            }
-        });
-
-        document.getElementById('searchInput2').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchRecipes();
-            }
-        });
-
-        // Auto-search on filter change
-        document.getElementById('categoryFilter').addEventListener('change', searchRecipes);
-        document.getElementById('difficultyFilter').addEventListener('change', searchRecipes);
-        document.getElementById('categoryFilter2').addEventListener('change', searchRecipes);
-        document.getElementById('difficultyFilter2').addEventListener('change', searchRecipes);
-
-        // Smooth scrolling for navigation
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a[href^="#"]');
-            if (link && link.getAttribute('href') !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-        });
-
-        // Add some visual effects
-        function addSparkleEffect(element) {
-            const sparkle = document.createElement('div');
-            sparkle.innerHTML = '✨';
-            sparkle.style.cssText = `
-                position: absolute;
-                pointer-events: none;
-                font-size: 1.5rem;
-                animation: sparkle 1s ease-out forwards;
-                z-index: 1000;
-            `;
-            
-            const rect = element.getBoundingClientRect();
-            sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
-            sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
-            
-            document.body.appendChild(sparkle);
-            
-            setTimeout(() => {
-                if (sparkle.parentNode) {
-                    sparkle.parentNode.removeChild(sparkle);
-                }
-            }, 1000);
-        }
-
-        // Add sparkle effect to recipe cards
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.recipe-card')) {
-                addSparkleEffect(e.target.closest('.recipe-card'));
-            }
-        });
-
-        // Mobile menu functions
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobile-nav');
-            mobileNav.classList.toggle('show');
-        }
-
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobile-nav');
-            mobileNav.classList.remove('show');
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileNav = document.getElementById('mobile-nav');
-            const mobileBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (!mobileNav.contains(e.target) && !mobileBtn.contains(e.target)) {
-                mobileNav.classList.remove('show');
-            }
-        });
-
-        // Initialize catering website link
-        function initCateringLink() {
-            document.getElementById('catering-website').href = 'https://mmmtweb2.github.io/israelFood/';
-        }
-
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case '1':
-                        e.preventDefault();
-                        showSection('home');
-                        break;
-                    case '2':
-                        e.preventDefault();
-                        showSection('recipes');
-                        break;
-                    case '3':
-                        e.preventDefault();
-                        showSection('categories');
-                        break;
-                    case '4':
-                        e.preventDefault();
-                        checkAdminAccess();
-                        break;
-                }
-            }
-            
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Initialize the app when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            init();
-            initCateringLink();
-        });
-    </script>
-</body>
-</html>
+                            <option value="מת
